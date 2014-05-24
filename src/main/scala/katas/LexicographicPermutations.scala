@@ -33,6 +33,8 @@ object LexicographicPermutations {
     in sum we have 725760. Sum with third one is already more than a million so our result is somewhere inside this permutations:
     2 * [9 8 7 6 5 4 3 1 0]. So we could count this 9! permutations, take (1000000 - 725760)th element from there and prepend 2.
      */
+    // as an option "0123456789".permutations.drop(999999).next
+    "0123456789".permutations.drop(999999).next
     type Perms = Stream[List[T]]
     val cache = scala.collection.mutable.HashMap[List[T], Perms]()
     def perms(ss: List[T]): Perms = {
@@ -49,5 +51,5 @@ object LexicographicPermutations {
     }
     (2 :: perms(l).take(1000000 - 725760).last).mkString("")
   }
-  def apply() = apply(List(0,1,3,4,5,6,7,8,9))
+  def apply(): String = apply(List(0,1,3,4,5,6,7,8,9))
 }
