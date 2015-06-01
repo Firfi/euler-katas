@@ -12,7 +12,11 @@ object ConnectedCellInAGrid {
 
   val steps = List[((M, N)) => (M, N)](
     (mn) => mn.copy(_1 = mn._1 + 1),
+    (mn) => mn.copy(_1 = mn._1 + 1, _2 = mn._2 + 1),
+    (mn) => mn.copy(_1 = mn._1 + 1, _2 = mn._2 - 1),
     (mn) => mn.copy(_1 = mn._1 - 1),
+    (mn) => mn.copy(_1 = mn._1 - 1, _2 = mn._2 + 1),
+    (mn) => mn.copy(_1 = mn._1 - 1, _2 = mn._2 - 1),
     (mn) => mn.copy(_2 = mn._2 + 1),
     (mn) => mn.copy(_2 = mn._2 - 1)
   )
