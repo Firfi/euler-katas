@@ -1,7 +1,5 @@
 package hackerrank
 
-import scala.collection.immutable.IndexedSeq
-
 object ConnectedCellInAGrid {
 
   type M = Int
