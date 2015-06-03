@@ -38,12 +38,12 @@ object Discs {
     type Open = Boolean
     val p: Array[(Long, Open)] = a.zipWithIndex.map({case (r, x) => x.toLong + r}).map(n => (n, true))
     val q: Array[(Long, Open)] = a.zipWithIndex.map({case (r, x) => x.toLong - r}).map(n => (n, false))
-    val dots = (p ++ q).sortWith({case ((d1, o1), (d2, o2)) => {
+    val dots = (p ++ q).sortWith({case ((d1, o1), (d2, o2)) =>
       if (d1 > d2) true
       else if (d1 < d2) false
       else if (o1 != o2) o1
       else o2
-    }})
+    })
     var opened = 0
     var count = 0
     for ((dot, o: Open) <- dots) {
