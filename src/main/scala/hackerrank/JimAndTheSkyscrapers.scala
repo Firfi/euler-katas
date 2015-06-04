@@ -12,8 +12,6 @@ object JimAndTheSkyscrapers {
             else List(h) :: lines
           }).filter(_.length > 1).map((l) => {val n = l.length - 1; BigInt(n) * (n + 1)}).sum
       }
-      // pit always not empty
-
     }
     // brute - 5/14 tests
 //    var r = 0
@@ -32,7 +30,7 @@ object JimAndTheSkyscrapers {
     if (heights.isEmpty) 0
     else {
       val (leftover, pits) = heights.tail.foldLeft((List(heights.head), List(List.empty[Long])))({case (acc@(stash, ps), h) =>
-        if (h > stash.head) { // we have a new pit and stash modification
+        if (h > stash.head) {
           val (pit, newStash) = stash.span(_ < h)
           (h :: newStash, pit :: ps)
         } else {
