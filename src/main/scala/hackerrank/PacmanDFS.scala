@@ -1,6 +1,6 @@
 package hackerrank
 
-
+// it doesn't work really well on anything except testing example
 
 object PacmanDFS {
 
@@ -26,29 +26,30 @@ object PacmanDFS {
     Matrix(value, m, n)
   }
 
-  def solve(matrix: Matrix, start: Coords, end: Coords): Int = {
-    val stack = collection.mutable.Stack(start)
+  def solve(matrix: Matrix, start: Coords, end: Coords): (Int, Seq[Coords], Int, Seq[Coords]) = {
+    val stack = collection.mutable.Stack(start->List(start))
     val log = collection.mutable.MutableList.empty[Coords]
-    var visitedCount = 1 // premature (or not) optimisation, who knows. it helper on codility.
     val visited = collection.mutable.HashSet.empty[Coords]
-    while (stack.nonEmpty) {
-      val current = stack.pop()
+    var done = false
+    while (stack.nonEmpty && !done) {
+      val (current, path) = stack.pop()
       if (!visited.contains(current)) {
         visited += current
-        visitedCount += 1
         log += current
         if (current == end) {
-          stack.clear() // no search anymore
+          stack.push((current, path)) // keep path
+          done = true
         } else {
-          steps.map((s) => {
+          val nexts = steps.map((s) => {
             s(current)
-          }).filter(_ != '%').filter(_._1 < matrix.m).filter(_._2 < matrix.n).foreach((next) => {
-            stack.push(next)
+          }).filter((coords) => matrix.value(coords) != '%').filter(_._1 < matrix.m).filter(_._2 < matrix.n)
+          nexts.foreach((next) => {
+            stack.push((next, next :: path))
           })
         }
       }
     }
-    ??? // TODO
+    (visited.size, log, stack.head._2.length - 1, stack.head._2.reverse)
   }
 
   def main(args: Array[String]): Unit = {
@@ -58,6 +59,10 @@ object PacmanDFS {
     val field = 1.to(m).map((_) =>
       readLine().toSeq
     )
-    solve(field, start1->start2, end1->end2) //TODO
+    val (total, log, pathLen, path) = solve(field, start1->start2, end1->end2) //TODO
+    println(total)
+    log.map((t) => s"${t._1} ${t._2}").foreach(println)
+    println(pathLen)
+    path.map((t) => s"${t._1} ${t._2}").foreach(println)
   }
 }
