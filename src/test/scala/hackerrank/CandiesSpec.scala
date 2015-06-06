@@ -28,6 +28,9 @@ class CandiesSpec extends mutable.Specification with ScalaCheck {
     "do the job" in {
       seqSpec(Seq(1,1,1,1))
     }
+    "do the job" in {
+      seqSpec(Seq(2, 4, 2, 6, 1, 7, 8, 9, 2, 1))
+    }
   }
 
 }
