@@ -28,21 +28,19 @@ object MaxThreats {
   }
 
   def threatsFor(queen: Coords, field: Matrix[Int], queens: Matrix[Boolean]): Int = {
-    println(queens.value)
     // fuk it
     val m = field.m
     val n = field.n
     steps.foldLeft(0)({case (threatsNum, step) =>
       var tn = -1 /* first step it would be the same queen */
       var q = queen
-      println("queen: " + q)
-      while(q._1 < m && q._2 < n && q._1 >= 0 && q._2 >= 0) { // not goes over field
+      var done = false
+      while(q._1 < m && q._2 < n && q._1 >= 0 && q._2 >= 0 && !done) { // not goes over field
         if (queens.value(q._1, q._2)) {
           tn += 1
-          println("tn: " + tn)
+          if (tn > 0) done = true
         }
         q = step(q)
-        println("queen: " + q)
       }
       tn + threatsNum
     })
